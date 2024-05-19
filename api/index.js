@@ -1,5 +1,5 @@
 import { InteractionResponseType, InteractionType, verifyKey } from "discord-interactions";
-import getRawBody from "raw-body";
+// import getRawBody from "raw-body";
 
 const SLAP_COMMAND = {
     name: 'Slap',
