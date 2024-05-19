@@ -35,7 +35,7 @@ const INVITE_URL = `https://discord.com/oauth2/authorize?client_id=${process.env
  * @param {VercelRequest} request
  * @param {VercelResponse} response
  */
-module.exports = async (request, response) => {
+export default async (request, response) => {
     console.log("request", request);
     console.log("response", response);
     if (request?.method === 'POST') {
