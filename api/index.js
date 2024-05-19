@@ -31,7 +31,7 @@ const INVITE_URL = `https://discord.com/oauth2/authorize?client_id=${process.env
  * @param {VercelRequest} request
  * @param {VercelResponse} response
  */
-(async (request, response) => {
+module.exports = async (request, response) => {
     if (request.method === 'POST') {
         const signature = request.headers['x-signature-ed25519'];
         const timestamp = request.headers['x-signature-timestamp'];
@@ -98,4 +98,4 @@ const INVITE_URL = `https://discord.com/oauth2/authorize?client_id=${process.env
             response.status(400).send({ error: 'Unknown Type' });
         }
     }
-})();
+};
