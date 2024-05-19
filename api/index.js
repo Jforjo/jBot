@@ -1,9 +1,5 @@
-const {
-    InteractionResponseType,
-    InteractionType,
-    verifyKey,
-} = require('discord-interactions');
-const getRawBody = require('raw-body');
+import { InteractionResponseType, InteractionType, verifyKey } from 'discord-interactions';
+import getRawBody from 'raw-body';
 
 const SLAP_COMMAND = {
     name: 'Slap',
@@ -35,9 +31,7 @@ const INVITE_URL = `https://discord.com/oauth2/authorize?client_id=${process.env
  * @param {VercelRequest} request
  * @param {VercelResponse} response
  */
-export default async (request, response) => {
-    console.log("request", request);
-    console.log("response", response);
+(async (request, response) => {
     if (request.method === 'POST') {
         const signature = request.headers['x-signature-ed25519'];
         const timestamp = request.headers['x-signature-timestamp'];
@@ -104,4 +98,4 @@ export default async (request, response) => {
             response.status(400).send({ error: 'Unknown Type' });
         }
     }
-};
+})();
