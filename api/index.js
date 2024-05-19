@@ -31,10 +31,10 @@ const INVITE_URL = `https://discord.com/oauth2/authorize?client_id=${process.env
  * @param {VercelRequest} request
  * @param {VercelResponse} response
  */
-export default async (request, response) => {
+module.exports = async (request, response) => {
     console.log("request", request);
     console.log("response", response);
-    if (request.method === 'POST') {
+    if (request?.method === 'POST') {
         const signature = request.headers['x-signature-ed25519'];
         const timestamp = request.headers['x-signature-timestamp'];
         const rawBody = JSON.stringify(req.body);
