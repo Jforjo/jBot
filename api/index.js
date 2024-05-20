@@ -31,7 +31,7 @@ const INVITE_URL = `https://discord.com/oauth2/authorize?client_id=${process.env
  * @param {VercelRequest} request
  * @param {VercelResponse} response
  */
-(async (request, response) => {
+export const index = async (request, response) => {
     console.log("request", request);
     console.log("response", response);
     if (request?.method === 'POST') {
@@ -100,4 +100,5 @@ const INVITE_URL = `https://discord.com/oauth2/authorize?client_id=${process.env
             response.status(400).send({ error: 'Unknown Type' });
         }
     }
-})();
+};
+export default index;
