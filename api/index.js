@@ -32,7 +32,7 @@ export default async (req, res) => {
                 case "slap":
                     console.log('Slap Request');
                     return res.status(200).send({
-                        type: 1,
+                        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
                         data: {
                             content: `*<@${message.member.user.id}> slaps <@${message.data.options[0].value}> around a bit with a large trout*`,
                         },
@@ -41,7 +41,7 @@ export default async (req, res) => {
                 case "invite":
                     console.log('Invite request');
                     return res.status(200).send({
-                        type: 1,
+                        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
                         data: {
                             content: INVITE_URL,
                             flags: 64,
@@ -51,7 +51,7 @@ export default async (req, res) => {
                 case "support":
                     console.log('Support request');
                     return res.status(200).send({
-                        type: 1,
+                        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
                         data: {
                             content:
                             "Thanks for using my bot! Let me know what you think on twitter (@IanMitchel1). If you'd like to contribute to hosting costs, you can donate at https://github.com/sponsors/ianmitchell",
@@ -60,9 +60,9 @@ export default async (req, res) => {
                     });
                     break;
                 case "ping":
-                    console.log('Support request');
+                    console.log('Ping request');
                     return res.status(200).send({
-                        type: 1,
+                        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
                         data: {
                             content: "Pong!"
                         },
