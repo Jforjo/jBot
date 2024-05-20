@@ -1,4 +1,4 @@
-import { InteractionType, verifyKey } from "discord-interactions";
+import { InteractionResponseType, verifyKey } from "discord-interactions";
 import { InstallGlobalCommands } from "./utils";
 
 const COMMANDS = [];
