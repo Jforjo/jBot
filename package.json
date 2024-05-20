@@ -5,6 +5,7 @@
         "discord-interactions": "^3.4.0",
         "dotenv": "^16.4.5",
         "raw-body": "^2.5.2",
-        "@vercel/node": "^3.1.5"
+        "@vercel/node": "^3.1.5",
+        "typescript": "^5.4.5"
     }
 }
