@@ -24,16 +24,20 @@ const SUPPORT_COMMAND = {
     description: 'Like this bot? Support me!',
 };
 
+const PING_COMMAND = {
+    name: 'Ping',
+    description: 'Ping the bot'
+}
+
 const INVITE_URL = `https://discord.com/oauth2/authorize?client_id=${process.env.APPLICATION_ID}&scope=applications.commands`;
 
-export default async (request, response) => {
-    if (request?.method === 'POST') {
-        const signature = request.headers['x-signature-ed25519'];
-        const timestamp = request.headers['x-signature-timestamp'];
-        const rawBody = await getRawBody(request);
+export default async (req, response) => {
+    if (req?.method === 'POST') {
+        const signature = req.get('X-Signature-Ed25519');
+        const timestamp = req.get('X-Signature-Timestamp');
 
         const isValidRequest = verifyKey(
-            rawBody,
+            req.rawBody,
             signature,
             timestamp,
             process.env.PUBLIC_KEY
@@ -41,20 +45,20 @@ export default async (request, response) => {
 
         if (!isValidRequest) {
             console.error('Invalid Request');
-            return response.status(401).send({ error: 'Bad request signature' });
+            return res.status(401).send({ error: 'Bad request signature' });
         }
 
-        const message = request.body;
+        const message = req.body;
 
         if (message.type === InteractionType.PING) {
             console.log('Handling Ping request');
-            return response.send({
+            return res.send({
                 type: InteractionResponseType.PONG,
             });
         } else if (message.type === InteractionType.APPLICATION_COMMAND) {
             switch (message.data.name.toLowerCase()) {
                 case SLAP_COMMAND.name.toLowerCase():
-                    return response.status(200).send({
+                    return res.status(200).send({
                         type: 4,
                         data: {
                             content: `*<@${message.member.user.id}> slaps <@${message.data.options[0].value}> around a bit with a large trout*`,
@@ -63,7 +67,7 @@ export default async (request, response) => {
                     console.log('Slap Request');
                     break;
                 case INVITE_COMMAND.name.toLowerCase():
-                    return response.status(200).send({
+                    return res.status(200).send({
                         type: 4,
                         data: {
                             content: INVITE_URL,
@@ -73,7 +77,7 @@ export default async (request, response) => {
                     console.log('Invite request');
                     break;
                 case SUPPORT_COMMAND.name.toLowerCase():
-                    return response.status(200).send({
+                    return res.status(200).send({
                         type: 4,
                         data: {
                             content:
@@ -83,16 +87,25 @@ export default async (request, response) => {
                     });
                     console.log('Support request');
                     break;
+                case PING_COMMAND.name.toLowerCase():
+                    return res.status(200).send({
+                        type: 4,
+                        data: {
+                            content: "Pong!"
+                        },
+                    });
+                    console.log('Support request');
+                    break;
                 default:
                     console.error('Unknown Command');
-                    return response.status(400).send({ error: 'Unknown Type' });
+                    return res.status(400).send({ error: 'Unknown Type' });
                     break;
             }
         } else {
             console.error('Unknown Type');
-            return response.status(400).send({ error: 'Unknown Type' });
+            return res.status(400).send({ error: 'Unknown Type' });
         }
     } else {
-        return response.json({ error: "Request method must be of type POST" });
+        return res.json({ error: "Request method must be of type POST" });
     }
 };
