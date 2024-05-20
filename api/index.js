@@ -27,7 +27,7 @@ const SUPPORT_COMMAND = {
 const INVITE_URL = `https://discord.com/oauth2/authorize?client_id=${process.env.APPLICATION_ID}&scope=applications.commands`;
 
 export default async (request, response) => {
-    return res.json({ req: request, res: response });
+    return response.json({ req: request, res: response });
     if (request?.method === 'POST') {
         const signature = request.headers['x-signature-ed25519'];
         const timestamp = request.headers['x-signature-timestamp'];
