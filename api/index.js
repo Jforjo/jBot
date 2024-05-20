@@ -30,10 +30,10 @@ const PING_COMMAND = {
 
 const INVITE_URL = `https://discord.com/oauth2/authorize?client_id=${process.env.APPLICATION_ID}&scope=applications.commands`;
 
-export default async (req, response) => {
+export default async (req, res) => {
     if (req?.method === 'POST') {
-        const signature = req.get('X-Signature-Ed25519');
-        const timestamp = req.get('X-Signature-Timestamp');
+		const signature = req.headers["x-signature-ed25519"];
+		const timestamp = req.headers["x-signature-timestamp"];
 
         const isValidRequest = verifyKey(
             req.rawBody,
