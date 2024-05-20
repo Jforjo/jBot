@@ -35,7 +35,6 @@ COMMANDS.push({
 });
 
 export default async (req, res) => {
-    const status = await InstallGlobalCommands(process.env.APPLICATION_ID, COMMANDS);
-    if (status.ok) return res.json({ message: "Commands Loaded" });
-    else return res.json({ message: "Commands NOT Loaded" });
+    await InstallGlobalCommands(process.env.APPLICATION_ID, COMMANDS);
+    return res.json({ message: "Commands Loaded" });
 }
