@@ -75,12 +75,14 @@ export default async (req, res) => {
                             components: [
                                 {
                                     type: 1,
-                                    components: {
-                                        type: 2,
-                                        label: "Support me!",
-                                        style: 5,
-                                        url: "https://ko-fi.com/jforjo"
-                                    }
+                                    components: [
+                                        {
+                                            type: 2,
+                                            label: "Support me!",
+                                            style: 5,
+                                            url: "https://ko-fi.com/jforjo"
+                                        }
+                                    ]
                                 }
                             ]
                         },
