@@ -24,10 +24,26 @@ const SUPPORT_COMMAND = {
     description: 'Like this bot? Support me!',
 };
 
+function censor(censor) {
+    var i = 0;
+    
+    return function(key, value) {
+      if(i !== 0 && typeof(censor) === 'object' && typeof(value) == 'object' && censor == value) 
+        return '[Circular]'; 
+      
+      if(i >= 29) // seems to be a harded maximum of 30 serialized objects?
+        return '[Unknown]';
+      
+      ++i; // so we know we aren't using the original object anymore
+      
+      return value;  
+    }
+  }
+
 const INVITE_URL = `https://discord.com/oauth2/authorize?client_id=${process.env.APPLICATION_ID}&scope=applications.commands`;
 
 export default async (request, response) => {
-    return response.json({ req: request, res: response });
+    return response.json({ req: JSON.stringify(request, censor(request)), res: JSON.stringify(response, censor(response)) });
     if (request?.method === 'POST') {
         const signature = request.headers['x-signature-ed25519'];
         const timestamp = request.headers['x-signature-timestamp'];
