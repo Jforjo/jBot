@@ -48,13 +48,13 @@ export default async (request, response) => {
 
         if (message.type === InteractionType.PING) {
             console.log('Handling Ping request');
-            response.send({
+            return response.send({
                 type: InteractionResponseType.PONG,
             });
         } else if (message.type === InteractionType.APPLICATION_COMMAND) {
             switch (message.data.name.toLowerCase()) {
                 case SLAP_COMMAND.name.toLowerCase():
-                    response.status(200).send({
+                    return response.status(200).send({
                         type: 4,
                         data: {
                             content: `*<@${message.member.user.id}> slaps <@${message.data.options[0].value}> around a bit with a large trout*`,
@@ -63,34 +63,34 @@ export default async (request, response) => {
                     console.log('Slap Request');
                     break;
                 case INVITE_COMMAND.name.toLowerCase():
-                    response.status(200).send({
-                    type: 4,
-                    data: {
-                        content: INVITE_URL,
-                        flags: 64,
-                    },
+                    return response.status(200).send({
+                        type: 4,
+                        data: {
+                            content: INVITE_URL,
+                            flags: 64,
+                        },
                     });
                     console.log('Invite request');
                     break;
                 case SUPPORT_COMMAND.name.toLowerCase():
-                    response.status(200).send({
-                    type: 4,
-                    data: {
-                        content:
-                        "Thanks for using my bot! Let me know what you think on twitter (@IanMitchel1). If you'd like to contribute to hosting costs, you can donate at https://github.com/sponsors/ianmitchell",
-                        flags: 64,
-                    },
+                    return response.status(200).send({
+                        type: 4,
+                        data: {
+                            content:
+                            "Thanks for using my bot! Let me know what you think on twitter (@IanMitchel1). If you'd like to contribute to hosting costs, you can donate at https://github.com/sponsors/ianmitchell",
+                            flags: 64,
+                        },
                     });
                     console.log('Support request');
                     break;
                 default:
                     console.error('Unknown Command');
-                    response.status(400).send({ error: 'Unknown Type' });
+                    return response.status(400).send({ error: 'Unknown Type' });
                     break;
             }
         } else {
             console.error('Unknown Type');
-            response.status(400).send({ error: 'Unknown Type' });
+            return response.status(400).send({ error: 'Unknown Type' });
         }
     } else {
         return response.json({ error: "Request method must be of type POST" });
