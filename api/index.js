@@ -30,7 +30,7 @@ export default async (req, res) => {
             switch (message.data.name.toLowerCase()) {
                 case "slap":
                     return res.status(200).send({
-                        type: SLAP_COMMAND.type,
+                        type: 1,
                         data: {
                             content: `*<@${message.member.user.id}> slaps <@${message.data.options[0].value}> around a bit with a large trout*`,
                         },
@@ -39,7 +39,7 @@ export default async (req, res) => {
                     break;
                 case "invite":
                     return res.status(200).send({
-                        type: INVITE_COMMAND.type,
+                        type: 1,
                         data: {
                             content: INVITE_URL,
                             flags: 64,
@@ -49,7 +49,7 @@ export default async (req, res) => {
                     break;
                 case "support":
                     return res.status(200).send({
-                        type: SUPPORT_COMMAND.type,
+                        type: 1,
                         data: {
                             content:
                             "Thanks for using my bot! Let me know what you think on twitter (@IanMitchel1). If you'd like to contribute to hosting costs, you can donate at https://github.com/sponsors/ianmitchell",
@@ -60,7 +60,7 @@ export default async (req, res) => {
                     break;
                 case "ping":
                     return res.status(200).send({
-                        type: PING_COMMAND.type,
+                        type: 1,
                         data: {
                             content: "Pong!"
                         },
