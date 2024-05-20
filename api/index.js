@@ -61,7 +61,7 @@ export default async (req, res) => {
                                     title: "What to support me?",
                                     color: 16738740,
                                     footer: {
-                                        text: "Support me!",
+                                        text: "https://ko-fi.com/jforjo",
                                         icon_url: "https://storage.ko-fi.com/cdn/brandasset/kofi_s_logo_nolabel.png"
                                     },
                                     timestamp: date.toISOString(),
