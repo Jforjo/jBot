@@ -6,9 +6,10 @@ export default async (req, res) => {
     if (req?.method === 'POST') {
 		const signature = req.headers["x-signature-ed25519"];
 		const timestamp = req.headers["x-signature-timestamp"];
+        const rawBody = JSON.stringify(req.body); 
 
         const isValidRequest = verifyKey(
-            req.rawBody,
+            rawBody,
             signature,
             timestamp,
             process.env.PUBLIC_KEY
