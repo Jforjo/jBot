@@ -29,15 +29,15 @@ export default async (req, res) => {
             });
         } else if (message.type === InteractionType.APPLICATION_COMMAND) {
             switch (message.data.name.toLowerCase()) {
-                case "slap":
-                    console.log('Slap Request');
-                    return res.status(200).send({
-                        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-                        data: {
-                            content: `*<@${message.member.user.id}> slaps <@${message.data.options[0].value}> around a bit with a large trout*`,
-                        },
-                    });
-                    break;
+                // case "slap":
+                //     console.log('Slap Request');
+                //     return res.status(200).send({
+                //         type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+                //         data: {
+                //             content: `*<@${message.member.user.id}> slaps <@${message.data.options[0].value}> around a bit with a large trout*`,
+                //         },
+                //     });
+                //     break;
                 case "invite":
                     console.log('Invite request');
                     return res.status(200).send({
@@ -53,9 +53,31 @@ export default async (req, res) => {
                     return res.status(200).send({
                         type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
                         data: {
-                            content:
-                            "Thanks for using my bot! Let me know what you think on twitter (@IanMitchel1). If you'd like to contribute to hosting costs, you can donate at https://github.com/sponsors/ianmitchell",
-                            flags: 64,
+                            content: null,
+                            embeds: [
+                                {
+                                    title: "What to support me?",
+                                    url: "https://ko-fi.com/jforjo#paypalModal",
+                                    color: 16738740,
+                                    footer: {
+                                        text: "Support me!",
+                                        icon_url: "https://storage.ko-fi.com/cdn/brandasset/kofi_s_logo_nolabel.png"
+                                    },
+                                    timestamp: new Date().toISOString(),
+                                    image: {
+                                        url: "https://storage.ko-fi.com/cdn/brandasset/kofi_button_red.png"
+                                    }
+                                }
+                            ],
+                            attachments: [],
+                            components: [
+                                {
+                                    type: 2,
+                                    label: "Support me!",
+                                    style: 5,
+                                    url: "https://ko-fi.com/jforjo"
+                                }
+                            ]
                         },
                     });
                     break;
