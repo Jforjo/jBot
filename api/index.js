@@ -59,7 +59,6 @@ export default async (req, res) => {
                             embeds: [
                                 {
                                     title: "What to support me?",
-                                    url: "https://ko-fi.com/jforjo#paypalModal",
                                     color: 16738740,
                                     footer: {
                                         text: "Support me!",
