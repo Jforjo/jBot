@@ -1,5 +1,9 @@
-import { InteractionResponseType, InteractionType, verifyKey } from "discord-interactions";
-// import getRawBody from "raw-body";
+const {
+	InteractionResponseType,
+	InteractionType,
+	verifyKey,
+} = require("discord-interactions");
+const getRawBody = require("raw-body");
 
 const SLAP_COMMAND = {
     name: 'Slap',
@@ -37,7 +41,7 @@ export const index = async (request, response) => {
     if (request?.method === 'POST') {
         const signature = request.headers['x-signature-ed25519'];
         const timestamp = request.headers['x-signature-timestamp'];
-        const rawBody = JSON.stringify(req.body);
+        const rawBody = await getRawBody(request);
 
         const isValidRequest = verifyKey(
             rawBody,
