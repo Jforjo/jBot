@@ -58,7 +58,7 @@ export default async (req, res) => {
                             content: null,
                             embeds: [
                                 {
-                                    title: "What to support me?",
+                                    title: "Want to support me?",
                                     color: 16738740,
                                     footer: {
                                         text: "https://ko-fi.com/jforjo",
