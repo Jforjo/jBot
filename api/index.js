@@ -21,6 +21,8 @@ export default async (req, res) => {
         }
 
         const message = req.body;
+        const date = new Date();
+
 
         if (message.type === InteractionType.PING) {
             console.log('Handling Ping request');
@@ -63,7 +65,7 @@ export default async (req, res) => {
                                         text: "Support me!",
                                         icon_url: "https://storage.ko-fi.com/cdn/brandasset/kofi_s_logo_nolabel.png"
                                     },
-                                    timestamp: new Date().toISOString(),
+                                    timestamp: date.toISOString(),
                                     image: {
                                         url: "https://storage.ko-fi.com/cdn/brandasset/kofi_button_red.png"
                                     }
@@ -72,10 +74,13 @@ export default async (req, res) => {
                             attachments: [],
                             components: [
                                 {
-                                    type: 2,
-                                    label: "Support me!",
-                                    style: 5,
-                                    url: "https://ko-fi.com/jforjo"
+                                    type: 1,
+                                    components: {
+                                        type: 2,
+                                        label: "Support me!",
+                                        style: 5,
+                                        url: "https://ko-fi.com/jforjo"
+                                    }
                                 }
                             ]
                         },
