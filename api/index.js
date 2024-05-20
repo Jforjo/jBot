@@ -30,15 +30,16 @@ export default async (req, res) => {
         } else if (message.type === InteractionType.APPLICATION_COMMAND) {
             switch (message.data.name.toLowerCase()) {
                 case "slap":
+                    console.log('Slap Request');
                     return res.status(200).send({
                         type: 1,
                         data: {
                             content: `*<@${message.member.user.id}> slaps <@${message.data.options[0].value}> around a bit with a large trout*`,
                         },
                     });
-                    console.log('Slap Request');
                     break;
                 case "invite":
+                    console.log('Invite request');
                     return res.status(200).send({
                         type: 1,
                         data: {
@@ -46,9 +47,9 @@ export default async (req, res) => {
                             flags: 64,
                         },
                     });
-                    console.log('Invite request');
                     break;
                 case "support":
+                    console.log('Support request');
                     return res.status(200).send({
                         type: 1,
                         data: {
@@ -57,16 +58,15 @@ export default async (req, res) => {
                             flags: 64,
                         },
                     });
-                    console.log('Support request');
                     break;
                 case "ping":
+                    console.log('Support request');
                     return res.status(200).send({
                         type: 1,
                         data: {
                             content: "Pong!"
                         },
                     });
-                    console.log('Support request');
                     break;
                 default:
                     console.error('Unknown Command');
