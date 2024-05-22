@@ -23,7 +23,6 @@ export default async (req, res) => {
         const message = req.body;
         const date = new Date();
 
-
         if (message.type === InteractionType.PING) {
             console.log('Handling Ping request');
             return res.send({
@@ -59,7 +58,7 @@ export default async (req, res) => {
                             embeds: [
                                 {
                                     title: "Want to support me?",
-                                    color: 16738740,
+                                    color: parseInt("FF69B4", 16),
                                     footer: {
                                         text: "https://ko-fi.com/jforjo",
                                         icon_url: "https://storage.ko-fi.com/cdn/brandasset/kofi_s_logo_nolabel.png"
