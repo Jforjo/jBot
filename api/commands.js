@@ -23,9 +23,6 @@ COMMANDS.push({
 
 export default async (req, res) => {
     await InstallGlobalCommands(process.env.APPLICATION_ID, COMMANDS);
-    await DeleteGlobalCommands(process.env.APPLICATION_ID, [
-        '1007505238430859345',
-        '1242035190130540595'
-    ]);
+    // await DeleteGlobalCommands(process.env.APPLICATION_ID, []);
     return res.json({ message: "Commands Loaded" });
 }
