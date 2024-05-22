@@ -38,7 +38,7 @@ export async function InstallGlobalCommands(appId, commands) {
 export async function DeleteGlobalCommands(appId, commands) {
     // API endpoint to overwrite global commands
     for (let i = 0; i < commands.length; i++) {
-        const endpoint = `applications/${appId}/commands${commands[i]}`;
+        const endpoint = `applications/${appId}/commands/${commands[i]}`;
       
         try {
             // This is calling the bulk overwrite endpoint: https://discord.com/developers/docs/interactions/application-commands#bulk-overwrite-global-application-commands
