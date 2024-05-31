@@ -26,7 +26,7 @@ export default async (req, res) => {
                 type: InteractionResponseType.PONG,
             });
         } else if (interaction.type === InteractionType.APPLICATION_COMMAND) {
-            const command = require(`../commands/${interaction.data.name.toLowerCase()}.js`);
+            const command = require(`../commands/${interaction.data.name.toLowerCase()}.js`).default;
             if (command) {
                 console.log(`Handling Command: ${interaction.data.name}`);
                 await command(req, res);
