@@ -1,6 +1,7 @@
 import { InteractionResponseType } from "discord-interactions";
 
 export default async (req, res) => {
+    const date = new Date();
     return res.status(200).send({
         type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
         data: {
