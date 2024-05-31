@@ -1,7 +1,5 @@
 import { InteractionResponseType, InteractionType, verifyKey } from "discord-interactions";
 
-const INVITE_URL = `https://discord.com/oauth2/authorize?client_id=${process.env.APPLICATION_ID}&scope=applications.commands`;
-
 export default async (req, res) => {
     if (req?.method === 'POST') {
 		const signature = req.headers["x-signature-ed25519"];
@@ -20,85 +18,21 @@ export default async (req, res) => {
             return res.status(401).send({ error: 'Bad request signature' });
         }
 
-        const message = req.body;
-        const date = new Date();
+        const interaction = req.body;
 
-        if (message.type === InteractionType.PING) {
+        if (interaction.type === InteractionType.PING) {
             console.log('Handling Ping request');
             return res.send({
                 type: InteractionResponseType.PONG,
             });
-        } else if (message.type === InteractionType.APPLICATION_COMMAND) {
-            switch (message.data.name.toLowerCase()) {
-                // case "slap":
-                //     console.log('Slap Request');
-                //     return res.status(200).send({
-                //         type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-                //         data: {
-                //             content: `*<@${message.member.user.id}> slaps <@${message.data.options[0].value}> around a bit with a large trout*`,
-                //         },
-                //     });
-                //     break;
-                case "invite":
-                    console.log('Invite request');
-                    return res.status(200).send({
-                        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-                        data: {
-                            content: INVITE_URL,
-                            flags: 64,
-                        },
-                    });
-                    break;
-                case "support":
-                    console.log('Support request');
-                    return res.status(200).send({
-                        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-                        data: {
-                            content: null,
-                            embeds: [
-                                {
-                                    title: "Want to support me?",
-                                    color: parseInt("FF69B4", 16),
-                                    footer: {
-                                        text: "https://ko-fi.com/jforjo",
-                                        icon_url: "https://storage.ko-fi.com/cdn/brandasset/kofi_s_logo_nolabel.png"
-                                    },
-                                    timestamp: date.toISOString(),
-                                    image: {
-                                        url: "https://storage.ko-fi.com/cdn/brandasset/kofi_button_red.png"
-                                    }
-                                }
-                            ],
-                            attachments: [],
-                            components: [
-                                {
-                                    type: 1,
-                                    components: [
-                                        {
-                                            type: 2,
-                                            label: "Support me!",
-                                            style: 5,
-                                            url: "https://ko-fi.com/jforjo"
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
-                    });
-                    break;
-                case "ping":
-                    console.log('Ping request');
-                    return res.status(200).send({
-                        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-                        data: {
-                            content: "Pong!"
-                        },
-                    });
-                    break;
-                default:
-                    console.error('Unknown Command');
-                    return res.status(400).send({ error: 'Unknown Type' });
-                    break;
+        } else if (interaction.type === InteractionType.APPLICATION_COMMAND) {
+            const command = require(`../commands/${interaction.data.name.toLowerCase()}.js`);
+            if (command) {
+                console.log(`Handling Command: ${interaction.data.name}`);
+                await command(req, res);
+            } else {
+                console.error('Unknown Command');
+                return res.status(400).send({ error: 'Unknown Command' });
             }
         } else {
             console.error('Unknown Type');
