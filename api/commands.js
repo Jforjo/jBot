@@ -21,6 +21,12 @@ COMMANDS.push({
     type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
 });
 
+COMMANDS.push({
+    name: 'clicker',
+    description: 'Play a clicker game!',
+    type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+});
+
 export default async (req, res) => {
     await InstallGlobalCommands(process.env.APPLICATION_ID, COMMANDS);
     // await DeleteGlobalCommands(process.env.APPLICATION_ID, []);
