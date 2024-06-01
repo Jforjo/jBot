@@ -23,7 +23,6 @@ const COMMANDS = [];
 
 COMMANDS.push({
     name: 'clicker',
-    description: 'Play a clicker game!',
     type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
 });
 
