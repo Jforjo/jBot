@@ -127,11 +127,11 @@ export default async (req, res) => {
                     title: mojang.name,
                     url: `https://sky.shiiyu.moe/stats/${mojang.uuid}/${name}`,
                     description: `
-                        ${inventory ? yes : no} Inventory API\n
-                        ${banking ? yes : no} Banking API\n
-                        ${collection ? yes : no} Collection API\n
+                        ${inventory ? yes : no} Inventory API
+                        ${banking ? yes : no} Banking API
+                        ${collection ? yes : no} Collection API
                         ${skills ? yes : no} Skills API
-                        ${vault ? yes : no} Personal Vault API\n
+                        ${vault ? yes : no} Personal Vault API
                     `,
                     color: parseInt("FF69B4", 16),
                     footer: {
