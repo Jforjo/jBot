@@ -62,10 +62,10 @@ const checkAPI = async (uuid, profilename) => {
     return {
         success: true,
         name: profile.cute_name,
-        inventory: "inventory" in profiledata,
+        inventory: "inventory" in profiledata && "inv_contents" in profiledata.inventory,
         collection: "collection" in profiledata,
         banking: "banking" in profiledata,
-        vault: "personal_vault_contents" in profiledata,
+        vault: "inventory" in profiledata && "personal_vault_contents" in profiledata.inventory,
         skills: "experience" in profiledata.player_data
     }
 }
