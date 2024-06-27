@@ -64,7 +64,7 @@ const checkAPI = async (uuid, profilename) => {
         name: profile.cute_name,
         inventory: "inventory" in profiledata && "inv_contents" in profiledata.inventory,
         collection: "collection" in profiledata,
-        banking: "banking" in profiledata,
+        banking: "banking" in profile && "balance" in profile.banking && profile.banking.balance != -1,
         vault: "inventory" in profiledata && "personal_vault_contents" in profiledata.inventory,
         skills: "experience" in profiledata.player_data
     }
