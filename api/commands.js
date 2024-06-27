@@ -24,7 +24,7 @@ COMMANDS.push({
 COMMANDS.push({
     name: 'checkapi',
     description: 'Check if a user\'s API is enabled',
-    type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+    type: 1,
     options: [
         {
             name: 'username',
