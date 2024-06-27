@@ -22,10 +22,24 @@ COMMANDS.push({
 });
 
 COMMANDS.push({
-    name: 'clicker',
-    description: 'Play a clicker game!',
+    name: 'checkapi',
+    description: 'Check if a user\'s API is enabled',
     type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+    options: [
+        {
+            name: 'username',
+            description: 'The username of the user',
+            type: 3,
+            required: true
+        }
+    ]
 });
+
+// COMMANDS.push({
+//     name: 'clicker',
+//     description: 'Play a clicker game!',
+//     type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+// });
 
 export default async (req, res) => {
     await InstallGlobalCommands(process.env.APPLICATION_ID, COMMANDS);

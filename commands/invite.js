@@ -1,4 +1,4 @@
-import { InteractionResponseType } from "discord-interactions";
+import { InteractionResponseType, MessageComponentTypes, ButtonStyleTypes } from "discord-interactions";
 
 export default async (req, res) => {
     const date = new Date();
@@ -20,12 +20,12 @@ export default async (req, res) => {
             attachments: [],
             components: [
                 {
-                    type: 1,
+                    type: MessageComponentTypes.ACTION_ROW,
                     components: [
                         {
-                            type: 2,
+                            type: MessageComponentTypes.BUTTON,
                             label: "Invite me!",
-                            style: 5,
+                            style: ButtonStyleTypes.LINK,
                             url: `https://discord.com/oauth2/authorize?client_id=${process.env.APPLICATION_ID}&scope=applications.commands`
                         }
                     ]
