@@ -1,6 +1,10 @@
 // import fetch from 'node-fetch';
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 
+export function ContainsWhiteSpace(s) {
+    return /\s/g.test(s);
+}
+
 export async function DiscordRequest(endpoint, options) {
     // append endpoint to root API URL
     const url = 'https://discord.com/api/v10/' + endpoint;

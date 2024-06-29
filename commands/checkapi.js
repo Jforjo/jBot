@@ -1,6 +1,12 @@
 import { InteractionType, InteractionResponseType } from "discord-interactions";
+import { ContainsWhiteSpace } from "../utils";
+
 
 const getUUID = async (username) => {
+    if (username == null || ContainsWhiteSpace(username)) return {
+        success: false,
+        message: 'Invalid username'
+    }
     const res = await fetch('https://api.mojang.com/users/profiles/minecraft/' + username, {
         mode: 'no-cors'
     });
@@ -23,12 +29,19 @@ const getUUID = async (username) => {
 
 }
 const isInventoryAPI = async (profiledata) => {
-    if ("inventory" in profiledata) {
-        if ("inv_contents" in profiledata.inventory) {
-            return profiledata.inventory.inv_contents != null;
-        }
-    }
-    return false;
+    return "inventory" in profiledata && "inv_contents" in profiledata.inventory;
+}
+const isCollectionAPI = async (profiledata) => {
+    return "collection" in profiledata;
+}
+const isBankingAPI = async (profile) => {
+    return "banking" in profile && "balance" in profile.banking && profile.banking.balance != -1;
+}
+const isPersonalVaultAPI = async (profiledata) => {
+    return "inventory" in profiledata && "personal_vault_contents" in profiledata.inventory;
+}
+const isSkillsAPI = async (profiledata) => {
+    return "experience" in profiledata.player_data;
 }
 const checkAPI = async (uuid, profilename) => {
     const res = await fetch('https://api.hypixel.net/v2/skyblock/profiles?uuid=' + uuid, {
@@ -56,24 +69,27 @@ const checkAPI = async (uuid, profilename) => {
             message: 'User has no profiles'
         }
     }
-    const profile = data.profiles.find((p) => p.selected);
+    let profile = data.profiles.find((p) => p.cute_name === profilename);
+    if (!profile) profile = data.profiles.find((p) => p.selected);
     const profiledata = profile.members[uuid];
 
     return {
         success: true,
         name: profile.cute_name,
-        inventory: "inventory" in profiledata && "inv_contents" in profiledata.inventory,
-        collection: "collection" in profiledata,
-        banking: "banking" in profile && "balance" in profile.banking && profile.banking.balance != -1,
-        vault: "inventory" in profiledata && "personal_vault_contents" in profiledata.inventory,
-        skills: "experience" in profiledata.player_data
+        inventory: isInventoryAPI(profiledata),
+        collection: isCollectionAPI(profiledata),
+        banking: isBankingAPI(profile),
+        vault: isPersonalVaultAPI(profiledata),
+        skills: isSkillsAPI(profiledata)
     }
 }
 
 export default async (req, res) => {
     const interaction = req.body;
     const date = new Date();
-    const username = interaction.data.options[0].value;
+    const options = Object.fromEntries(interaction.data.options.map(option => [option.name, option.value]));
+    const username = options.name;
+    const profile = options.profile;
     const yes = "✅";
     const no = "❌";
     const mojang = await getUUID(username);
@@ -97,7 +113,7 @@ export default async (req, res) => {
             },
         });
     }
-    const { success, message, name, inventory, collection, banking, vault, skills } = await checkAPI(mojang.uuid);
+    const { success, message, name, inventory, collection, banking, vault, skills } = await checkAPI(mojang.uuid, profile);
     if (!success) {
         return res.status(200).send({
             type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,

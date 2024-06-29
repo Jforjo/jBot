@@ -20,22 +20,26 @@ COMMANDS.push({
 
 COMMANDS.push({
     name: 'checkapi',
-    description: 'Check if a user\'s API is enabled',
+    description: 'Hypixel Skyblock command: Check if a user\'s API is enabled',
     options: [
         {
             name: 'username',
             description: 'The username of the user',
             type: 3,
             required: true
+        },
+        {
+            name: 'profile',
+            description: 'The profile of the user',
+            type: 3,
         }
     ]
 });
 
-// COMMANDS.push({
-//     name: 'clicker',
-//     description: 'Play a clicker game!',
-//     type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-// });
+COMMANDS.push({
+    name: 'clicker',
+    description: 'Play a clicker game!',
+});
 
 export default async (req, res) => {
     await InstallGlobalCommands(process.env.APPLICATION_ID, COMMANDS);
