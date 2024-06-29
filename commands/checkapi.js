@@ -88,7 +88,7 @@ export default async (req, res) => {
     const interaction = req.body;
     const date = new Date();
     const options = Object.fromEntries(interaction.data.options.map(option => [option.name, option.value]));
-    const username = options.name;
+    const username = options.username;
     const profile = options.profile;
     const yes = "✅";
     const no = "❌";
