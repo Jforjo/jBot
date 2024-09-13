@@ -24,7 +24,7 @@ export default async (req, res) => {
     res.setHeader('Content-Type', image.type);
     res.setHeader('Content-Disposition', `attachment; filename=image.${image.type.replace('image/', '')}`);
     // res.send(await readFile(image.url));
-    res.pipe(await fetch(image.url));
+    res.send(await (await fetch(image.url)).buffer());
 };
 async function isImgUrl(url) {
     try {
