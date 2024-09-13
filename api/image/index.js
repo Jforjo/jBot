@@ -1,3 +1,5 @@
+import { readFile } from 'fs/promises';
+
 export default async (req, res) => {
     // GETTING THE IMAGES FROM FOLDER
     // const files = await readdir(join(__dirname, 'images'));
