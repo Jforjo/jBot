@@ -1,4 +1,5 @@
 import { readFile } from 'fs/promises';
+import { join } from 'path';
 
 export default async (req, res) => {
     // GETTING THE IMAGES FROM FOLDER
