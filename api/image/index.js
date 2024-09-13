@@ -21,9 +21,9 @@ export default async (req, res) => {
         const urlState = await isImgUrl(url);
         if (urlState.isImg) return { url: url, type: urlState.type };
     })).then(arr => arr[Math.floor(Math.random() * arr.length)]);
-    res.setHeader('Content-Type', type);
+    res.setHeader('Content-Type', image.type);
     res.setHeader('Content-Disposition', `attachment; filename=image.${image.type.replace('image/', '')}`);
-    res.send(image);
+    res.send(await readFile(image.url));
 };
 async function isImgUrl(url) {
     try {
@@ -31,7 +31,8 @@ async function isImgUrl(url) {
         const type = res.headers.get('Content-Type');
         return {
             isImg: type && type.startsWith('image'),
-            type: type
+            type: type,
+            url: url
         };
     } catch {
         return { isImg: false };
