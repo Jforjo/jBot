@@ -26,10 +26,14 @@ export default async (req, res) => {
     res.send(image);
 };
 async function isImgUrl(url) {
-    const res = await fetch(url, { method: 'HEAD' });
-    const type = res.headers.get('Content-Type');
-    return {
-        isImg: type && type.startsWith('image'),
-        type: type
-    };
+    try {
+        const res = await fetch(url, { method: 'HEAD' });
+        const type = res.headers.get('Content-Type');
+        return {
+            isImg: type && type.startsWith('image'),
+            type: type
+        };
+    } catch {
+        return { isImg: false };
+    }
 }
