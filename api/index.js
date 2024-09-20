@@ -28,22 +28,21 @@ export default async (req, res) => {
         } else if (interaction.type === InteractionType.APPLICATION_COMMAND) {
             const command = require(`../commands/${interaction.data.name.toLowerCase()}.js`).default;
             if (command) {
-                console.log(`Handling Command: ${interaction.data.name}`);
+                // console.log(`Handling Command: ${interaction.data.name}`);
                 await command(req, res);
             } else {
                 console.error('Unknown Command');
                 return res.status(400).send({ error: 'Unknown Command' });
             }
-        // } else if (interaction.type === InteractionType.MESSAGE_COMPONENT) {
-        //     const idparts = interaction.data.custom_id.split('_');
-        //     const command = require(`../commands/${idparts[0]}.js`).default;
-        //     if (command) {
-        //         console.log(`Handling Component: ${idparts[0]} | ${idparts[1]}`);
-        //         await command(req, res);
-        //     } else {
-        //         console.error('Unknown Component');
-        //         return res.status(400).send({ error: 'Unknown Component' });
-        //     }
+        } else if (interaction.type === InteractionType.MESSAGE_COMPONENT) {
+            const command = require(`../commands/components/${interaction.data.custom_id.toLowerCase()}.js`).default;
+            if (command) {
+                // console.log(`Handling Command: ${interaction.data.custom_id}`);
+                await command(req, res);
+            } else {
+                console.error('Unknown Command');
+                return res.status(400).send({ error: 'Unknown Component' });
+            }
         } else {
             console.error('Unknown Type');
             return res.status(400).send({ error: 'Unknown Type' });

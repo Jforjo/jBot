@@ -41,6 +41,11 @@ COMMANDS.push({
     description: 'Play a clicker game!',
 });
 
+COMMANDS.push({
+    name: 'ticket',
+    description: 'Display a ticket embed',
+});
+
 export default async (req, res) => {
     await InstallGlobalCommands(process.env.APPLICATION_ID, COMMANDS);
     // await DeleteGlobalCommands(process.env.APPLICATION_ID, []);
