@@ -1,5 +1,4 @@
 import { InteractionResponseType, MessageComponentTypes, ButtonStyleTypes } from "discord-interactions";
-import { CreateChannel, SendMessage, ToPermissions } from "../../utils";
 
 export default async (req, res) => {
     const date = new Date();
@@ -38,6 +37,8 @@ export default async (req, res) => {
             },
         });
     }
+
+    console.log("apply btn");
 
     return res.status(200).send({
         type: InteractionResponseType.MODAL,
