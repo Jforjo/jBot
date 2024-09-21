@@ -43,6 +43,15 @@ export default async (req, res) => {
                 console.error('Unknown Command');
                 return res.status(400).send({ error: 'Unknown Component' });
             }
+        } else if (interaction.type === InteractionType.MODAL_SUBMIT) {
+            const command = require(`../commands/modals/${interaction.data.custom_id.toLowerCase()}.js`).default;
+            if (command) {
+                // console.log(`Handling Command: ${interaction.data.custom_id}`);
+                await command(req, res);
+            } else {
+                console.error('Unknown Command');
+                return res.status(400).send({ error: 'Unknown Component' });
+            }
         } else {
             console.error('Unknown Type');
             return res.status(400).send({ error: 'Unknown Type' });

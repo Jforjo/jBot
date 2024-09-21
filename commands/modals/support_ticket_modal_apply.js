@@ -38,11 +38,11 @@ export default async (req, res) => {
             },
         });
     }
-
+    console.log(interaction);
     const channel = await CreateChannel(process.env.GUILD_ID, {
         type: 0,
-        name: `support-${userid}`,
-        topic: `Support for ${username} - ${userid}`,
+        name: `apply-${userid}`,
+        topic: `Apply for ${username} - ${userid}`,
         parent_id: "1286727301723324476",
         nsfw: false,
         permission_overwrites: [
@@ -70,20 +70,32 @@ export default async (req, res) => {
         return res.status(200).send({
             type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
             data: {
-                content: "Failed to create the support ticket.",
+                content: "Failed to create the apply ticket.",
                 flags: 1 << 6
             },
         });
     }
     // Sends a message in the newly created channel
     await SendMessage(channel.id, {
-        content: `Hello, <@${userid}>! I am here to help!`,
+        content: null,
+        embeds: [
+            {
+                title: "Need Support?",
+                description: `Hello, <@${userid}>! I am here to help!\n\n**Reason:**\n`,
+                color: parseInt("FF69B4", 16),
+                footer: {
+                    text: "https://ko-fi.com/jforjo",
+                    icon_url: "https://storage.ko-fi.com/cdn/brandasset/kofi_s_logo_nolabel.png"
+                },
+                timestamp: date.toISOString(),
+            }
+        ],
     });
 
     return res.status(200).send({
         type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
         data: {
-            content: `Support ticket created: <#${channel.id}>`,
+            content: `Apply ticket created: <#${channel.id}>`,
             flags: 1 << 6
         },
     });

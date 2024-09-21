@@ -39,52 +39,33 @@ export default async (req, res) => {
         });
     }
 
-    const channel = await CreateChannel(process.env.GUILD_ID, {
-        type: 0,
-        name: `support-${userid}`,
-        topic: `Support for ${username} - ${userid}`,
-        parent_id: "1286727301723324476",
-        nsfw: false,
-        permission_overwrites: [
-            {
-                id: interaction.guild.id,
-                type: 0,
-                allow: null,
-                deny: ToPermissions({
-                    view_channel: true
-                })
-            },
-            {
-                id: userid,
-                type: 1,
-                allow: ToPermissions({
-                    view_channel: true,
-                    send_messages: true
-                }),
-                deny: null
-            }
-        ]
-    });
-
-    if (channel == null && channel?.id == null) {
-        return res.status(200).send({
-            type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-            data: {
-                content: "Failed to create the support ticket.",
-                flags: 1 << 6
-            },
-        });
-    }
-    // Sends a message in the newly created channel
-    await SendMessage(channel.id, {
-        content: `Hello, <@${userid}>! I am here to help!`,
-    });
-
     return res.status(200).send({
-        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+        type: InteractionResponseType.MODAL,
         data: {
-            content: `Support ticket created: <#${channel.id}>`,
-            flags: 1 << 6
+            title: "Apply for Support",
+            custom_id: "support_ticket_modal_apply",
+            components: [
+                {
+                    type: MessageComponentTypes.TEXT_INPUT,
+                    custom_id: "support_ticket_modal_apply_name",
+                    label: "Name",
+                    style: 1,
+                    min_length: 3,
+                    max_length: 16,
+                    placeholder: "Your name",
+                    required: true
+                },
+                {
+                    type: MessageComponentTypes.TEXT_INPUT,
+                    custom_id: "support_ticket_modal_apply_reason",
+                    label: "Reason",
+                    style: 2,
+                    min_length: 5,
+                    max_length: 100,
+                    placeholder: "What do you need support with?",
+                    required: true
+                }
+            ]
         },
     });
 }
