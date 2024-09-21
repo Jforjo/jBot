@@ -52,6 +52,28 @@ export async function DeleteGlobalCommands(appId, commands) {
         }
     }
 }
+export async function InstallGuildCommands(appId, guildId, commands) {
+    // API endpoint to overwrite guild commands
+    const endpoint = `applications/${appId}/guilds/${guildId}/commands`;
+  
+    try {
+        await DiscordRequest(endpoint, { method: 'PUT', body: commands });
+    } catch (err) {
+        console.error(err);
+    }
+}
+export async function DeleteGuildCommands(appId, guildId, commands) {
+    // API endpoint to overwrite guild commands
+    for (let i = 0; i < commands.length; i++) {
+        const endpoint = `applications/${appId}/guilds/${guildId}/commands/${commands[i]}`;
+      
+        try {
+            await DiscordRequest(endpoint, { method: 'DELETE' });
+        } catch (err) {
+            console.error(err);
+        }
+    }
+}
 
 export async function CreateChannel(guildId, options) {
     // https://discord.com/developers/docs/resources/guild#create-guild-channel

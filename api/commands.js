@@ -1,5 +1,5 @@
 import { InteractionResponseType } from "discord-interactions";
-import { InstallGlobalCommands, DeleteGlobalCommands } from "../utils";
+import { InstallGlobalCommands, DeleteGlobalCommands, InstallGuildCommands } from "../utils";
 
 const COMMANDS = [];
 
@@ -47,7 +47,8 @@ COMMANDS.push({
 });
 
 export default async (req, res) => {
-    await InstallGlobalCommands(process.env.APPLICATION_ID, COMMANDS);
-    // await DeleteGlobalCommands(process.env.APPLICATION_ID, []);
+    // await InstallGlobalCommands(process.env.APPLICATION_ID, COMMANDS);
+    await DeleteGlobalCommands(process.env.APPLICATION_ID, COMMANDS);
+    await InstallGuildCommands(process.env.APPLICATION_ID, process.env.GUILD_ID, COMMANDS);
     return res.json({ message: "Commands Loaded" });
 }
