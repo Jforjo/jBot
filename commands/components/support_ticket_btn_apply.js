@@ -45,24 +45,34 @@ export default async (req, res) => {
             custom_id: "support_ticket_modal_apply",
             components: [
                 {
-                    type: MessageComponentTypes.INPUT_TEXT,
-                    custom_id: "support_ticket_modal_apply_name",
-                    label: "Name",
-                    style: 1,
-                    min_length: 3,
-                    max_length: 16,
-                    placeholder: "Your name",
-                    required: true
+                    type: MessageComponentTypes.ACTION_ROW,
+                    components: [
+                        {
+                            type: MessageComponentTypes.INPUT_TEXT,
+                            custom_id: "support_ticket_modal_apply_name",
+                            label: "Name",
+                            style: 1,
+                            min_length: 3,
+                            max_length: 16,
+                            placeholder: "Your name",
+                            required: true
+                        }
+                    ]
                 },
                 {
-                    type: MessageComponentTypes.INPUT_TEXT,
-                    custom_id: "support_ticket_modal_apply_reason",
-                    label: "Reason",
-                    style: 2,
-                    min_length: 5,
-                    max_length: 100,
-                    placeholder: "What do you need support with?",
-                    required: true
+                    type: MessageComponentTypes.ACTION_ROW,
+                    components: [
+                        {
+                            type: MessageComponentTypes.INPUT_TEXT,
+                            custom_id: "support_ticket_modal_apply_reason",
+                            label: "Reason",
+                            style: 2,
+                            min_length: 5,
+                            max_length: 100,
+                            placeholder: "What do you need support with?",
+                            required: true
+                        }
+                    ]
                 }
             ]
         },
