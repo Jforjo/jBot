@@ -38,7 +38,10 @@ export default async (req, res) => {
             },
         });
     }
-    console.log(interaction);
+
+    const name = interaction.data.components[0].components[0].value;
+    const reason = interaction.data.components[1].components[0].value;
+    
     const channel = await CreateChannel(process.env.GUILD_ID, {
         type: 0,
         name: `apply-${userid}`,
@@ -81,7 +84,7 @@ export default async (req, res) => {
         embeds: [
             {
                 title: "Need Support?",
-                description: `Hello, <@${userid}>! I am here to help!\n\n**Reason:**\n`,
+                description: `Hello, <@${userid}>! I am here to help!\n\n**Name:**\n${name}\n\n**Reason:**\n${reason}`,
                 color: parseInt("FF69B4", 16),
                 footer: {
                     text: "https://ko-fi.com/jforjo",
