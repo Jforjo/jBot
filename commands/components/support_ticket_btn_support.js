@@ -63,7 +63,9 @@ export default async (req, res) => {
         ]
     });
 
-    if (channel == null) {
+    console.log(channel);
+
+    if (channel == null && channel?.id == null) {
         return res.status(200).send({
             type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
             data: {
