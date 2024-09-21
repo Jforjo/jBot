@@ -36,7 +36,7 @@ export default async (req, res) => {
         });
     }
 
-    const channel = await CreateChannel("", `support-${userid}`, {
+    const channel = await CreateChannel(process.env.GUILD_ID, {
         type: 0,
         name: `support-${userid}`,
         topic: `Support for ${userid}`,
