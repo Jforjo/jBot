@@ -6,12 +6,15 @@ export default async (req, res) => {
     const interaction = req.body;
 
     let userid = null;
+    let username = null;
     if (interaction.user != null) {
         // The command was a DM
         userid = interaction.user.id;
+        username = interaction.user.username
     } else if (interaction.member != null) {
         // The command was in a server
         userid = interaction.member.user.id;
+        username = interaction.member.user.username
     }
 
     if (userid == null) {
@@ -39,7 +42,7 @@ export default async (req, res) => {
     const channel = await CreateChannel(process.env.GUILD_ID, {
         type: 0,
         name: `support-${userid}`,
-        topic: `Support for ${userid}`,
+        topic: `Support for ${username} - ${userid}`,
         parent_id: "1286727301723324476",
         nsfw: false,
         permission_overwrites: [
@@ -75,7 +78,7 @@ export default async (req, res) => {
         });
     }
 
-    SendMessage(channel.id, {
+    await SendMessage(channel.id, {
         content: `Hello, <@${userid}>! I am here to help!`,
     });
 
