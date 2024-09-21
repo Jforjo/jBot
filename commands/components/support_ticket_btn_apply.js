@@ -38,8 +38,6 @@ export default async (req, res) => {
         });
     }
 
-    console.log("apply btn");
-
     return res.status(200).send({
         type: InteractionResponseType.MODAL,
         data: {
@@ -47,7 +45,7 @@ export default async (req, res) => {
             custom_id: "support_ticket_modal_apply",
             components: [
                 {
-                    type: MessageComponentTypes.TEXT_INPUT,
+                    type: MessageComponentTypes.INPUT_TEXT,
                     custom_id: "support_ticket_modal_apply_name",
                     label: "Name",
                     style: 1,
@@ -57,7 +55,7 @@ export default async (req, res) => {
                     required: true
                 },
                 {
-                    type: MessageComponentTypes.TEXT_INPUT,
+                    type: MessageComponentTypes.INPUT_TEXT,
                     custom_id: "support_ticket_modal_apply_reason",
                     label: "Reason",
                     style: 2,
