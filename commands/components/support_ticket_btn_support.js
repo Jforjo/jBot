@@ -36,7 +36,7 @@ export default async (req, res) => {
         });
     }
 
-    const channel = CreateChannel("", `support-${userid}`, {
+    const channel = await CreateChannel("", `support-${userid}`, {
         type: 0,
         name: `support-${userid}`,
         topic: `Support for ${userid}`,
